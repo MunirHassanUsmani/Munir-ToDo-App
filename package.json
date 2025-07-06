@@ -1,0 +1,14 @@
+{
+  "name": "munir-todo-app",
+  "version": "1.0.0",
+  "description": "To-Do App backend with sorting and search",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Munir Hassan Usmani",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
