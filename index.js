@@ -5,13 +5,14 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 let todos = [
-  { id: 1, message: "Buy groceries" },
+  { id: 1, message: "This todo has been fully replaced" },
   { id: 2, message: "Happy Birthday reminder" },
-  { id: 3, message: "Complete assignment" }
+  { id: 3, message: "Complete assignment" },
+  { id: 4, message: "Read DSA Book" }
 ];
 
 app.get("/", (req, res) => {
-  res.send("✅ Munir's To-Do API is running. Try /todos, /todos/search, /todos/sort/id etc.");
+  res.send("✅ Munir's To-Do API is running.");
 });
 
 app.get("/todos", (req, res) => {
