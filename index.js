@@ -32,19 +32,19 @@ app.post("/todos", (req, res) => {
 });
 
 app.put("/todos/:id", (req, res) => {
-  const { id } = req.params;
+  const id = parseInt(req.params.id);
   const { message } = req.body;
-  const index = todos.findIndex(todo => todo.id == id);
+  const index = todos.findIndex(todo => todo.id === id);
   if (index === -1) return res.status(404).json({ error: "Todo not found" });
 
-  todos[index] = { id: parseInt(id), message };
+  todos[index] = { id, message };
   res.json(todos[index]);
 });
 
 app.patch("/todos/:id", (req, res) => {
-  const { id } = req.params;
+  const id = parseInt(req.params.id);
   const { message } = req.body;
-  const todo = todos.find(todo => todo.id == id);
+  const todo = todos.find(todo => todo.id === id);
   if (!todo) return res.status(404).json({ error: "Todo not found" });
 
   if (message) todo.message = message;
@@ -52,8 +52,8 @@ app.patch("/todos/:id", (req, res) => {
 });
 
 app.delete("/todos/:id", (req, res) => {
-  const { id } = req.params;
-  const index = todos.findIndex(todo => todo.id == id);
+  const id = parseInt(req.params.id);
+  const index = todos.findIndex(todo => todo.id === id);
   if (index === -1) return res.status(404).json({ error: "Todo not found" });
 
   const deleted = todos.splice(index, 1);
@@ -62,19 +62,21 @@ app.delete("/todos/:id", (req, res) => {
 
 app.get("/todos/sort/id", (req, res) => {
   const { k } = req.query;
-  const sorted = [...todos].sort((a, b) =>
-    k === "desc" ? b.id - a.id : a.id - b.id
-  );
+  const sorted = todos
+    .slice()
+    .sort((a, b) => (k === "desc" ? b.id - a.id : a.id - b.id));
   res.json(sorted);
 });
 
 app.get("/todos/sort/message", (req, res) => {
   const { k } = req.query;
-  const sorted = [...todos].sort((a, b) =>
-    k === "desc"
-      ? b.message.localeCompare(a.message)
-      : a.message.localeCompare(b.message)
-  );
+  const sorted = todos
+    .slice()
+    .sort((a, b) =>
+      k === "desc"
+        ? b.message.localeCompare(a.message)
+        : a.message.localeCompare(b.message)
+    );
   res.json(sorted);
 });
 
